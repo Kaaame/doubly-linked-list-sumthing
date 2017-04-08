@@ -1,4 +1,3 @@
-# doubly-linked-list-sumthing
 #include <cstdio>
 #include <cstring>
 #include <cstdlib>
@@ -103,6 +102,7 @@ bool isEmpty()
 
 char * readline(const char * prompt)
 {
+	//uzywa malloc, ale byc moze razem ze struktura jest usuwaneXD
 	fflush(stdin);
 	char * hold;
 	char c='\0';
@@ -157,9 +157,9 @@ void addelement()
 		addLast(name, surname, sex, age, nin);
 	}*/
 	addelementfile(name, surname, sex, age, nin);
-	/*free((void *)name);
-	free((void *)surname);
-	free((void *)sex);*/
+	/*free(name);
+	free(surname);
+	free(sex);*/
 }
 
 void addFirst(char * name, char * surname, char * sex, int age, unsigned long long nin)//generalnie private
@@ -260,7 +260,7 @@ bool deleteperson()//przez to ze mam globalne zmienne chyba nie trzeba uzywac st
 	{
 		delstruct = head;
 		head = head->next;
-		//if((*delstruct)!= NULL)freestruct(delstruct);
+		//if(&((*delstruct)->name)!= NULL)freestruct(delstruct);
 	}
 	else
 	{
@@ -514,9 +514,10 @@ void menu()
 
 void freestruct(struct dlist * delstruct)
 {
-	delstruct->name = NULL;
-	delstruct->surname = NULL;
-	delstruct->sex = NULL;
+	//delstruct->name = NULL;
+	free(delstruct->name);
+	free(delstruct->surname);// = NULL;
+	free(delstruct->sex);// = NULL;
 	delstruct->next = NULL;
 	delstruct->prev = NULL;
 	free(delstruct);
